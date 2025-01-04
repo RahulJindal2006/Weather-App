@@ -1,1 +1,1 @@
-# Weather-App
+This weather application, built using React and Vite, offers detailed location information and various factors to help users prepare for the weather. To access the code, simply switch the project branch to "master".
