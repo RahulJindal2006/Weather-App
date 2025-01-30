@@ -1,0 +1,68 @@
+/* Weather Card */
+.weather-card {
+  background-color: #4B5563;
+  color: white;
+  border-radius: 1rem;
+  width: 300px;
+  padding: 2rem;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.weather-card-header {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.weather-info {
+  display: flex;
+  align-items: center;
+  font-size: 45px;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.weather-description {
+  font-size: 18px;
+  margin-top: 1rem;
+  font-weight: 500;
+  color: #2D3748;
+  background-color: #38B2AC;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  word-wrap: break-word;
+  white-space: normal;
+  text-align: center;
+}
+
+.weather-footer {
+  margin-top: 1.5rem;
+}
+
+.date-info,
+.location-info {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.location-info {
+  color: #D1D5DB;
+}
+
+.temperature-icon {
+  margin-left: 10px;
+  font-size: 4rem;
+}
+
+.hot {
+  color: orange;
+}
+
+.cold {
+  color: blue;
+}
+
+.moderate {
+  color: gray;
+}

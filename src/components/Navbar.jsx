@@ -2,100 +2,95 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import SearchIcon from "@mui/icons-material/Search";
-import InputAdornment from "@mui/material/InputAdornment";
-import FilterDramaTwoToneIcon from '@mui/icons-material/FilterDramaTwoTone';
-import GpsFixedIcon from '@mui/icons-material/GpsFixed';
+import CloseIcon from "@mui/icons-material/Close"; 
+import "../styles/Navbar.css";
 
-const Navbar = ({ onSearch, onLocationSearch }) => {
-  const [searchCity, setSearchCity] = useState("");
+const Navbar = ({ onSearch }) => {
+  const [searchInput, setSearchInput] = useState("");
+  const [searchHistory, setSearchHistory] = useState([]);
 
   const handleSearchClick = () => {
-    if (searchCity.trim()) {
-      onSearch(searchCity);
+    if (searchInput.trim()) {
+      onSearch(searchInput.trim());
+      setSearchHistory((prev) =>
+        [searchInput.trim(), ...prev.filter((item) => item !== searchInput)].slice(0, 5)
+      );
+      setSearchInput("");
     }
   };
 
-  const handleCurrentLocationClick = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          onLocationSearch(latitude, longitude); // Pass coordinates to parent
-        },
-        (error) => {
-          alert("Error retrieving location: " + error.message);
-        }
-      );
-    } else {
-      alert("Geolocation is not supported by this browser.");
-    }
+  const handleRedirectClick = () => {
+    window.open("https://www.linkedin.com/school/pmaccelerator/", "_blank");
+  };
+
+  const removeSearchItem = (item) => {
+    setSearchHistory((prev) => prev.filter((historyItem) => historyItem !== item));
   };
 
   return (
-    <nav
-      style={{
-        justifyContent: "space-between",
-        display: "flex",
-        alignItems: "center",
-        marginTop: "10px",
-        padding: "10px",
-        paddingLeft: '30px',
-        paddingRight: '30px'
-      }}
-    >
-      <div style={{ display: "flex", alignItems: "center", gap: "2px" }}>
-        <FilterDramaTwoToneIcon />
-        <p style={{ fontWeight: "bold", fontSize: "20px" }}>Weather</p>
-      </div>
-      <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-        <TextField
-          variant="outlined"
-          placeholder="Search city 'London'"
-          size="small"
-          value={searchCity}
-          onChange={(e) => setSearchCity(e.target.value)}
-          style={{
-            backgroundColor: "white",
-            borderRadius: "2rem",
-            width: "22rem",
-          }}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
+    <nav className="navbar">
+      <div className="navbar-content">
+        <div className="navbar-left">
+          <h1 className="navbar-title">Weather Dashboard</h1>
+        </div>
+
+        <div className="navbar-center">
+          <TextField
+            variant="outlined"
+            placeholder="Enter Location"
+            size="small"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            className="search-input"
+            autoComplete="off"
+            InputProps={{
+              endAdornment: (
+                <SearchIcon
+                  className="search-icon"
+                  onClick={handleSearchClick}
+                  style={{ cursor: "pointer" }}
+                />
+              ),
+            }}
+          />
+          <Button
+            variant="contained"
+            className="search-button"
+            onClick={handleSearchClick}
+          >
+            Search
+          </Button>
+        </div>
+
         <Button
           variant="contained"
-          onClick={handleSearchClick}
-          style={{ borderRadius: "6px" ,backgroundColor: '#4B5550'}}
+          className="redirect-button"
+          onClick={handleRedirectClick}
         >
-          Search
+          Visit PM Accelerator
         </Button>
       </div>
-      <div
-        style={{
-          marginTop: "1rem",
-          fontSize: "16px",
-          fontWeight: "700",
-          backgroundColor: '#4B5550',
-          height: "35px",
-          width: "150px",
-          color: 'white',
-          gap: '2px',
-          borderRadius: "6px",
-          alignItems: "center",
-          display: "flex",
-          justifyContent: "center",
-          cursor: "pointer"
-        }}
-        onClick={handleCurrentLocationClick}
-      >
-        <GpsFixedIcon />
-        <p style={{ fontSize: '14px' }}>Current Location</p>
-      </div>
+
+      {searchHistory.length > 0 && (
+        <div className="search-history">
+          {searchHistory.map((item, index) => (
+            <div
+              key={index}
+              className="search-history-item"
+              onClick={() => setSearchInput(item)}
+            >
+              {item}
+              <CloseIcon
+                className="remove-history-item"
+                onClick={(e) => {
+                  e.stopPropagation(); // Prevent triggering the search input on click
+                  removeSearchItem(item);
+                }}
+              />
+            </div>
+          ))}
+        </div>
+      )}
     </nav>
   );
 };

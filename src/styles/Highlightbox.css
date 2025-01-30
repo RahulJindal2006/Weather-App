@@ -1,0 +1,41 @@
+/* Highlight Box */
+.highlight-box {
+  background-color: #2d3748;
+  color: white;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  width: 220px;
+  height: 120px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.highlight-title {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.highlight-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.highlight-icon {
+  font-size: 35px;
+  color: #38b2ac;
+}
+
+.highlight-value {
+  font-size: 32px;
+  font-weight: 600;
+  margin: 0;
+  text-align: center;
+  margin-left: 0.5rem;
+}

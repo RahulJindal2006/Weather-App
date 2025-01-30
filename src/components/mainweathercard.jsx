@@ -1,8 +1,10 @@
+import React from "react";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import WbSunnyIcon from '@mui/icons-material/WbSunny'; // Hot weather icon
-import AcUnitIcon from '@mui/icons-material/AcUnit'; // Cold weather icon
-import CloudIcon from '@mui/icons-material/Cloud'; // Moderate weather icon
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import AcUnitIcon from '@mui/icons-material/AcUnit'; 
+import CloudIcon from '@mui/icons-material/Cloud';
+import '../styles//mainweathercard.css';
 
 const MainWeatherCard = ({ weatherData }) => {
   const temperatureCelsius = weatherData?.main?.temp || "N/A";
@@ -21,69 +23,29 @@ const MainWeatherCard = ({ weatherData }) => {
 
   const renderTemperatureIcon = () => {
     if (temperatureCelsius > 23) {
-      return <WbSunnyIcon style={{ marginLeft: '10px', fontSize: '4rem', color: 'orange' }} />;
+      return <WbSunnyIcon className="temperature-icon hot" />;
     } else if (temperatureCelsius < 10) {
-      return <AcUnitIcon style={{ marginLeft: '10px', fontSize: '4rem', color: 'blue' }} />;
+      return <AcUnitIcon className="temperature-icon cold" />;
     } else {
-      return <CloudIcon style={{ marginLeft: '10px', fontSize: '4rem', color: 'gray' }} />;
+      return <CloudIcon className="temperature-icon moderate" />;
     }
   };
 
   return (
-    <div
-      style={{
-        backgroundColor: '#4B5563',
-        color: 'white',
-        borderRadius: '1rem',
-        width: '300px', // Increased width
-        padding: '2rem', // Increased padding
-        boxShadow: '0 6px 15px rgba(0, 0, 0, 0.2)', // Added shadow for a floating effect
-      }}
-    >
-      <div style={{ fontSize: '22px', fontWeight: 'bold' }}>Now</div>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          fontSize: '45px', // Increased font size for temperature
-          fontWeight: 'bold',
-          marginTop: '1rem',
-        }}
-      >
+    <div className="weather-card">
+      <div className="weather-card-header">Now</div>
+      <div className="weather-info">
         {temperatureCelsius}°C
         {renderTemperatureIcon()}
       </div>
-      <div
-        style={{
-          fontSize: '18px',
-          marginTop: '1rem',
-          fontWeight: '500',
-          color: '#2D3748', // Darker color for the weather description text
-          backgroundColor: '#38B2AC', // Greenish background color
-          padding: '0.5rem', // Added padding for better spacing
-          borderRadius: '0.5rem',
-          wordWrap: 'break-word', // Ensures text doesn't overflow
-          whiteSpace: 'normal', // Ensures text wraps correctly
-          textAlign: 'center',
-        }}
-      >
-        {weatherDescription}
-      </div>
-      <div style={{ marginTop: '1.5rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', fontSize: '16px', marginBottom: '8px' }}>
-          <CalendarMonthIcon style={{ marginRight: '10px' }} />
+      <div className="weather-description">{weatherDescription}</div>
+      <div className="weather-footer">
+        <div className="date-info">
+          <CalendarMonthIcon />
           {currentDate}
         </div>
-        <div
-          style={{
-            marginTop: '8px',
-            display: 'flex',
-            alignItems: 'center',
-            fontSize: '16px',
-            color: '#D1D5DB',
-          }}
-        >
-          <LocationOnIcon style={{ marginRight: '10px' }} />
+        <div className="location-info">
+          <LocationOnIcon />
           {cityName}, {countryName}
         </div>
       </div>
