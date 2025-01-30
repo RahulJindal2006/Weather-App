@@ -41,5 +41,6 @@
   "main": "db.js",
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "homepage": "https://rahuljindal2006.github.io/weather-application/"
 }
